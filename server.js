@@ -9,6 +9,8 @@ const io = new Server(server, {
   cors: {
     origin: "*",
   },
+  pingTimeout: 60000,
+  pingInterval: 25000
 });
 
 app.get("/", (req, res) => {
@@ -24,13 +26,14 @@ io.on("connection", (socket) => {
   });
 
   socket.on("pilotLocationUpdate", (data) => {
-    const { rideId, lat, lng, heading, speed } = data;
+    const { rideId, lat, lng, heading, speed, geometry } = data;
 
     io.to(rideId).emit("locationUpdate", {
       lat,
       lng,
       heading,
       speed,
+      geometry
     });
   });
 
