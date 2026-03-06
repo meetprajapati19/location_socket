@@ -1,3 +1,4 @@
+const { log } = require("console");
 const express = require("express");
 const http = require("http");
 const { Server } = require("socket.io");
@@ -34,6 +35,7 @@ io.on("connection", (socket) => {
       heading,
       speed,
     });
+    log(`Location update for ride ${rideId}:`, { lat, lng, heading, speed });
   });
   socket.on("liveRouteUpdate", (data) => {
     const { rideId, route } = data;
@@ -41,6 +43,7 @@ io.on("connection", (socket) => {
     io.to(rideId).emit("liveRouteUpdate", {
       route
     });
+    log(`Live route update for ride ${rideId}:`, route);
   });
 
   socket.on("disconnect", () => {
