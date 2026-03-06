@@ -26,14 +26,20 @@ io.on("connection", (socket) => {
   });
 
   socket.on("pilotLocationUpdate", (data) => {
-    const { rideId, lat, lng, heading, speed, geometry } = data;
+    const { rideId, lat, lng, heading, speed } = data;
 
     io.to(rideId).emit("locationUpdate", {
       lat,
       lng,
       heading,
       speed,
-      geometry
+    });
+  });
+  socket.on("liveRouteUpdate", (data) => {
+    const { rideId, route } = data;
+
+    io.to(rideId).emit("liveRouteUpdate", {
+      route
     });
   });
 
