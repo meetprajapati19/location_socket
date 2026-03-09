@@ -35,7 +35,7 @@ io.on("connection", (socket) => {
       heading,
       speed,
     });
-    log(`Location update for ride ${rideId}:`, { lat, lng, heading, speed });
+   
   });
   socket.on("liveRouteUpdate", (data) => {
     const { rideId, route } = data;
